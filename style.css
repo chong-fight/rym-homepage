@@ -1,0 +1,1020 @@
+/* =========================================================
+   任悦萌 · 个人求职主页  style.css
+   风格：极简高级（深绛红 + 暖白底 + 细线条），无任何外部 CDN
+   配色：主色 #A5192E / 深色 #8E1122 / 暖白底 #FBF8F6
+   ========================================================= */
+
+/* 把配色、字体、圆角统一存成变量，改一处全站生效 */
+:root {
+  --red: #A5192E;
+  /* 主色：深绛红 */
+  --red-deep: #8E1122;
+  /* 深色：用于悬停、小标题点题 */
+  --red-soft: rgba(165, 25, 46, .07);
+  /* 主色的极浅底，铺在标签和卡片高亮处 */
+  --paper: #FBF8F6;
+  /* 页面底色：暖白，比纯白更耐看 */
+  --card: #FFFFFF;
+  /* 卡片底色 */
+  --ink: #1E1B1A;
+  /* 正文主色：近黑的暖调深灰 */
+  --ink-2: #6B635F;
+  /* 次要文字：说明、日期 */
+  --line: #ECE4E0;
+  /* 分割线、卡片描边 */
+  --radius: 16px;
+  /* 统一圆角 */
+  --shadow-soft: 0 1px 2px rgba(30, 20, 20, .04);
+  /* 常态极淡投影，卡片不飘 */
+  --shadow-hover: 0 12px 28px rgba(120, 20, 35, .10);
+  /* 悬停投影，用主色系的暖影 */
+  --font-sans: "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", "Hiragino Sans GB", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* 中文正文用无衬线，屏幕上更清晰 */
+  --font-serif: "Songti SC", "STSong", "SimSun", "Noto Serif SC", Georgia, serif;
+  /* 标题用宋体，撑出「高级感」 */
+}
+
+/* 全局重置：去掉浏览器默认的外边距和内边距，避免乱版 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 点击导航锚点时平滑滚动（只为定位服务，不是装饰动画） */
+html {
+  scroll-behavior: smooth;
+  /* 顶部导航是吸顶的，留出 84px  offsets，标题不会被挡住 */
+  scroll-padding-top: 84px;
+}
+
+/* 页面基础排版：底色、字体、行高、文字色 */
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 链接默认去掉下划线，颜色跟随父级，保持页面干净 */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 列表去掉默认符号（本项目所有列表都用卡片或标签自己排版） */
+ul,
+ol {
+  list-style: none;
+}
+
+/* 图片按容器宽度自适应，避免撑破卡片 */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* =========================================================
+   顶部导航条：吸顶 + 细线分隔
+   ========================================================= */
+
+/* 吸顶条：半透明暖白 + 毛玻璃，滚到下面也能随时下载简历 */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 14px clamp(20px, 5vw, 64px);
+  background: rgba(251, 248, 246, .88);
+  backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+/* 左侧姓名标识：加深颜色，作为返回顶部的入口 */
+.topbar-brand {
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--ink);
+}
+
+/* 姓名与后缀之间的小圆点，用主色点一下 */
+.brand-dot {
+  color: var(--red);
+  margin: 0 6px;
+}
+
+/* 中间锚点菜单：横向排列并推到右侧 */
+.topbar-links {
+  display: flex;
+  gap: 26px;
+  margin-left: auto;
+  font-size: .92rem;
+}
+
+/* 菜单项常态为次要色，悬停变主色 */
+.topbar-links a {
+  color: var(--ink-2);
+  transition: color .2s ease;
+}
+
+/* 悬停反馈：变成主色，让「这里可以点」一目了然 */
+.topbar-links a:hover {
+  color: var(--red);
+}
+
+/* 右侧下载简历按钮：实心红底，全站最强的行动点 */
+.topbar-cta {
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: var(--red);
+  color: #fff;
+  font-size: .9rem;
+  letter-spacing: .02em;
+  transition: background .2s ease, transform .2s ease;
+}
+
+/* 悬停：颜色加深并轻微上浮 */
+.topbar-cta:hover {
+  background: var(--red-deep);
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   头部（我是谁）：banner 背景 + 姓名 + 一句话 + 联系方式
+   ========================================================= */
+
+/* banner 区：深红渐变叠在 banner 图上，图不在也不影响观感 */
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(28px, 5vw, 64px);
+  padding: clamp(56px, 8vw, 96px) clamp(20px, 6vw, 88px) clamp(52px, 7vw, 84px);
+  color: #fff;
+  overflow: hidden;
+  /* 第一层是红色渐变（保证可读性），第二层是 assets/banner.png */
+  background-image:
+    linear-gradient(104deg, rgba(84, 9, 20, .95) 0%, rgba(140, 17, 34, .92) 46%, rgba(178, 32, 54, .84) 100%),
+    url("assets/banner.png");
+  background-size: cover, cover;
+  background-position: center, center;
+}
+
+/* 右下角一团柔光，让大块红色有层次，不显得死板 */
+.hero::after {
+  content: "";
+  position: absolute;
+  right: -120px;
+  bottom: -220px;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, .22), rgba(255, 255, 255, 0) 70%);
+  pointer-events: none;
+  /* 纯装饰层不接收鼠标事件 */
+}
+
+/* 头部文字块：限宽，避免一行太长不好读 */
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+}
+
+/* 英文小标签：大写 + 拉宽字距，做出杂志感的「高级」味道 */
+.eyebrow {
+  font-size: .74rem;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .72);
+}
+
+/* 姓名主标题：宋体 + 大字号，页面的视觉中心 */
+.hero-name {
+  margin: 14px 0 16px;
+  font-family: var(--font-serif);
+  font-size: clamp(2.6rem, 6vw, 3.6rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: .12em;
+}
+
+/* 一句话介绍：稍微放大、降低一点不透明度，读起来有主次 */
+.hero-line {
+  max-width: 34em;
+  font-size: clamp(1rem, 1.6vw, 1.08rem);
+  color: rgba(255, 255, 255, .88);
+}
+
+/* 联系方式横向排列，自动换行 */
+.hero-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  margin-top: 26px;
+}
+
+/* 每个联系方式做成半透明胶囊，红色背景上更整齐 */
+.contact-item {
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 255, 255, .28);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .08);
+  font-size: .9rem;
+  letter-spacing: .02em;
+}
+
+/* 邮箱按钮：外观和联系方式胶囊一致，但可以点击复制 */
+.mail-btn {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #fff;
+  font: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+  border-bottom: 1px dashed rgba(255, 255, 255, .6);
+  transition: color .2s ease, border-color .2s ease;
+}
+
+/* 悬停：下划线变实线，提示可点击 */
+.mail-btn:hover {
+  color: #FFE7EA;
+  border-bottom-style: solid;
+}
+
+/* 头部按钮组：横向排列并可换行 */
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 14px;
+  margin-top: 30px;
+}
+
+/* 按钮公共样式：统一高度与圆角，保证两个按钮一样高 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: .95rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+
+/* 主按钮：白底红字，红色 banner 上对比最强 */
+.btn-primary {
+  background: #fff;
+  color: var(--red-deep);
+  font-weight: 600;
+}
+
+/* 主按钮悬停：轻微上浮 + 白色柔光 */
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, .18);
+}
+
+/* 次按钮：透明底 + 白色细描边，不与主按钮抢焦点 */
+.btn-ghost {
+  border-color: rgba(255, 255, 255, .55);
+  color: #fff;
+}
+
+/* 次按钮悬停：填一层淡白，表示已选中 */
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, .14);
+}
+
+/* 按钮旁的小字说明：只在宽屏显示，手机端省空间 */
+.hero-actions-note {
+  font-size: .82rem;
+  color: rgba(255, 255, 255, .68);
+}
+
+/* 头像外圈：细描边 + 淡底，像一个相框 */
+.hero-avatar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 156px;
+  height: 156px;
+  padding: 7px;
+  border: 1px solid rgba(255, 255, 255, .45);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .10);
+}
+
+/* 头像图片：正方形裁成圆形，铺满相框 */
+.hero-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* 图片加载失败时把它藏起来，避免出现破图图标 */
+.hero-avatar img.is-missing {
+  display: none;
+}
+
+/* 姓氏占位块：默认不显示，只有头像图缺失时才露出来 */
+.avatar-mono {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .9);
+  color: var(--red-deep);
+  font-family: var(--font-serif);
+  font-size: 3rem;
+}
+
+/* 图片缺失时，紧跟在它后面的占位块改为显示（相邻兄弟选择器） */
+.hero-avatar img.is-missing+.avatar-mono {
+  display: flex;
+}
+
+/* =========================================================
+   正文容器与区块标题
+   ========================================================= */
+
+/* 正文限宽居中：1080px 是简历类页面最舒服的阅读宽度 */
+.page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 40px);
+}
+
+/* 每个区块之间留 64px 呼吸感，配合留白撑出高级感 */
+.section {
+  padding-top: 64px;
+}
+
+/* 区块标题行：左侧大标题，下方一条细线收口 */
+.section-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: 4px 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 26px;
+}
+
+/* 区块编号：主色 + 等宽数字，像目录的页码 */
+.section-no {
+  color: var(--red);
+  font-size: .82rem;
+  letter-spacing: .12em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 区块标题：宋体，字号加大，与正文区分开 */
+.section-head h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.4rem, 2.4vw, 1.7rem);
+  font-weight: 600;
+  letter-spacing: .06em;
+}
+
+/* 标题下的一句说明：次要颜色、小字号 */
+.section-sub {
+  grid-column: 1 / -1;
+  color: var(--ink-2);
+  font-size: .9rem;
+}
+
+/* =========================================================
+   卡片与栅格
+   ========================================================= */
+
+/* 卡片基础样式：白底、细描边、淡投影，全站复用 */
+.card {
+  padding: 24px 26px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow-soft);
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+
+/* 悬停：卡片轻抬 + 描边透出主色，表示「这一块可看」 */
+.card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(165, 25, 46, .32);
+  box-shadow: var(--shadow-hover);
+}
+
+/* 两列栅格：技能卡片用 */
+.grid {
+  display: grid;
+  gap: 18px;
+}
+
+/* 桌面端两列排布 */
+.grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* =========================================================
+   01 求职意向
+   ========================================================= */
+
+/* 意向卡内部：用 definition list 做「标签 + 内容」的对齐 */
+.intent-list {
+  display: grid;
+  gap: 14px;
+}
+
+/* 每一行：左边固定宽度放标签，右边放内容 */
+.intent-row {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed var(--line);
+}
+
+/* 最后一行不留多余的分割线 */
+.intent-row:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+/* 标签文字：次要色，稍小一号 */
+.intent-row dt {
+  color: var(--ink-2);
+  font-size: .9rem;
+  letter-spacing: .04em;
+}
+
+/* 内容文字：正常字号，允许长句换行 */
+.intent-row dd {
+  font-size: .98rem;
+}
+
+/* =========================================================
+   02 专业技能
+   ========================================================= */
+
+/* 技能卡内部纵向排列 */
+.skill-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 技能名与熟练度在同一行，两端对齐 */
+.skill-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* 技能名：加大字重，一眼扫到重点 */
+.skill-card h3 {
+  font-size: 1.06rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+
+/* 熟练度标签：浅红底 + 细描边，不抢主色 */
+.pill {
+  flex: none;
+  padding: 3px 12px;
+  border: 1px solid rgba(165, 25, 46, .25);
+  border-radius: 999px;
+  background: var(--red-soft);
+  color: var(--red-deep);
+  font-size: .78rem;
+  letter-spacing: .06em;
+}
+
+/* 「熟练」级别用实心红，形成强弱对比 */
+.pill-strong {
+  border-color: transparent;
+  background: var(--red);
+  color: #fff;
+}
+
+/* 技能佐证：小字号 + 顶部细虚线，说明不是空口自夸 */
+.skill-proof {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line);
+  color: var(--ink-2);
+  font-size: .86rem;
+}
+
+/* =========================================================
+   03 实训项目经历（时间轴）
+   ========================================================= */
+
+/* 时间轴容器：作为竖线的定位父级 */
+.timeline {
+  position: relative;
+}
+
+/* 中缝竖线：从第一项到最后一项，颜色由深到浅自然收尾 */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 96px;
+  top: 26px;
+  bottom: 26px;
+  width: 1px;
+  background: linear-gradient(180deg, rgba(165, 25, 46, .38), rgba(165, 25, 46, .06));
+}
+
+/* 每一条：左边日期、右边卡片 */
+.timeline-item {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 22px;
+  padding-bottom: 18px;
+}
+
+/* 日期：右对齐、主色、等宽数字，像简历里的时间栏 */
+.timeline-date {
+  padding-top: 24px;
+  text-align: right;
+  color: var(--red);
+  font-size: .86rem;
+  letter-spacing: .06em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 项目卡相对定位，供小圆点定位使用 */
+.work-card {
+  position: relative;
+}
+
+/* 竖线上的节点小圆点：白心红圈，落在中缝上 */
+.work-card::before {
+  content: "";
+  position: absolute;
+  left: -26px;
+  top: 32px;
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--red);
+  border-radius: 50%;
+  background: #fff;
+}
+
+/* 项目标题：与角色标签同一行，遇到窄屏自动换行 */
+.work-card h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 1.06rem;
+  font-weight: 600;
+}
+
+/* 角色标签（独立完成 / 组长）：无底色的红色小字，最轻的提示 */
+.role {
+  padding-left: 10px;
+  border-left: 2px solid var(--red);
+  color: var(--red-deep);
+  font-size: .8rem;
+  font-weight: 400;
+  letter-spacing: .04em;
+}
+
+/* 关键词标签组：横向排列，自动换行 */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+/* 单个标签：浅红底小胶囊，用来放技能关键词 */
+.tags li {
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: var(--red-soft);
+  color: var(--red-deep);
+  font-size: .8rem;
+  letter-spacing: .04em;
+}
+
+/* =========================================================
+   04 教育背景
+   ========================================================= */
+
+/* 教育卡：左边学校信息，右边相关课程，一行铺开 */
+.edu-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: 26px;
+}
+
+/* 学校名：宋体，稍大，作为这一块的主体 */
+.edu-main h3 {
+  font-family: var(--font-serif);
+  font-size: 1.24rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+
+/* 专业与学制：次要色小字 */
+.edu-major {
+  margin-top: 6px;
+  color: var(--ink-2);
+  font-size: .92rem;
+}
+
+/* 课程列表：三行，行间细虚线分隔 */
+.course-list {
+  display: grid;
+  gap: 8px;
+}
+
+/* 每门课：左课程名、右成绩，两端对齐 */
+.course-list li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--line);
+  font-size: .94rem;
+}
+
+/* 最后一门课不留分割线 */
+.course-list li:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+/* 成绩：主色加粗，是这一块最该被看到的信息 */
+.course-score {
+  color: var(--red-deep);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* =========================================================
+   05 证书荣誉
+   ========================================================= */
+
+/* 荣誉列表：每条一行，行间细线 */
+.honor-list {
+  display: grid;
+  gap: 12px;
+}
+
+/* 单条荣誉：名称在左，时间在右 */
+.honor-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed var(--line);
+  font-size: .96rem;
+}
+
+/* 单条荣誉里的名称加粗一点，便于扫读 */
+.honor-list b {
+  font-weight: 600;
+}
+
+/* 时间等补充信息：次要色小字 */
+.honor-list span {
+  color: var(--ink-2);
+  font-size: .86rem;
+}
+
+/* 如实标注的「暂无」条目：虚线框 + 主色浅底，不假装有荣誉 */
+/* 用 .honor-list .honor-empty 提高优先级，确保四条虚线框颜色统一 */
+.honor-list .honor-empty {
+  justify-content: flex-start;
+  padding: 12px 16px;
+  border: 1px dashed rgba(165, 25, 46, .35);
+  border-radius: 12px;
+  background: var(--red-soft);
+  color: var(--red-deep);
+  font-size: .9rem;
+}
+
+/* =========================================================
+   06 校园实践 / 07 自我评价 / 08 学习日志
+   ========================================================= */
+
+/* 校园实践：三列并排 */
+.campus-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+/* 实践卡内部纵向排列 */
+.campus-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 职务与时间同一行，两端对齐 */
+.campus-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 10px;
+}
+
+/* 职务名：正常字号加粗 */
+.campus-item h3 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* 任职时间：主色等宽数字 */
+.campus-date {
+  color: var(--red);
+  font-size: .82rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 自我评价卡：两句话之间用细线分开，保留呼吸感 */
+.quote-card p {
+  font-size: 1rem;
+}
+
+/* 第二句与第一句之间加一条细线 */
+.quote-card p+p {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--line);
+}
+
+/* 学习日志：三列并排 */
+.learning-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+/* 学习卡片：纵向排列，状态标签在最上 */
+.learning-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 状态标签：极浅红底小字，表示「进行中」 */
+.learning-tag {
+  align-self: flex-start;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--red-soft);
+  color: var(--red-deep);
+  font-size: .76rem;
+  letter-spacing: .08em;
+}
+
+/* 学习主题：正常加粗 */
+.learning-item h3 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* 学习说明：次要色小字，说明具体怎么补 */
+.learning-item p {
+  color: var(--ink-2);
+  font-size: .9rem;
+}
+
+/* =========================================================
+   页脚与复制提示条
+   ========================================================= */
+
+/* 页脚：居中、细线收口，与正文拉开距离 */
+.footer {
+  margin-top: 72px;
+  padding: 28px 20px 40px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+
+/* 版权行：稍深一点，作为页脚主信息 */
+.footer-main {
+  font-size: .92rem;
+  letter-spacing: .04em;
+}
+
+/* 补充说明行：次要色小字，含简历下载入口 */
+.footer-note {
+  margin-top: 6px;
+  color: var(--ink-2);
+  font-size: .84rem;
+}
+
+/* 页脚里的下载链接：主色 + 虚线下划线，区别于普通文字 */
+.footer-note a {
+  color: var(--red);
+  border-bottom: 1px dashed rgba(165, 25, 46, .45);
+}
+
+/* 上线地址行：公网访问时在这里显示真实网址，方便别人复制 */
+.footer-url {
+  margin-top: 10px;
+  font-size: .86rem;
+  color: var(--ink-2);
+}
+
+/* 网址本身：主色 + 等宽字体，一眼看出是可点的链接 */
+.footer-url a {
+  color: var(--red);
+  font-family: "Consolas", "Courier New", monospace;
+  word-break: break-all;
+  /* 网址很长时不撑破手机屏幕 */
+}
+
+/* 「复制链接」小按钮：描边胶囊，弱化处理不抢主按钮 */
+.link-btn {
+  margin-left: 8px;
+  padding: 3px 12px;
+  border: 1px solid rgba(165, 25, 46, .35);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--red-deep);
+  font: inherit;
+  font-size: .8rem;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+}
+
+/* 悬停：填充主色，明确"这里可以点" */
+.link-btn:hover {
+  background: var(--red);
+  color: #fff;
+}
+
+/* 页脚二维码：白底细边，居中摆放；没有图片时整块自动隐藏 */
+.footer-qr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: 18px;
+  font-size: .8rem;
+  color: var(--ink-2);
+}
+
+/* 二维码图片：固定 116px，白底 + 细描边，扫码时对比清楚 */
+.footer-qr img {
+  width: 116px;
+  height: 116px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+
+/* 复制提示条：默认藏在屏幕下方，复制成功后滑入 */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 32px;
+  z-index: 40;
+  padding: 11px 22px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-size: .9rem;
+  letter-spacing: .02em;
+  opacity: 0;
+  transform: translate(-50%, 12px);
+  transition: opacity .25s ease, transform .25s ease;
+  pointer-events: none;
+}
+
+/* 显示状态：加上这个类就淡入并上移到位 */
+.toast.is-show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* =========================================================
+   响应式（进阶挑战 2）：平板与手机端改为单列
+   ========================================================= */
+
+/* 中屏（≤900px）：教育卡、校园实践、学习日志由多列改为一列 */
+@media (max-width: 900px) {
+  .edu-card {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .campus-list,
+  .learning-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* 手机端（≤600px）：三块骨架全部变成一列，字号收紧 */
+@media (max-width: 600px) {
+
+  /* 手机端隐藏锚点菜单，只留姓名和下载按钮，避免顶部挤成一团 */
+  .topbar-links {
+    display: none;
+  }
+
+  /* 头部改为上下排布并居中，头像放到文字下方 */
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    text-align: center;
+    padding: 48px 20px 52px;
+  }
+
+  /* 手机端头像缩小一圈 */
+  .hero-avatar {
+    width: 120px;
+    height: 120px;
+    order: -1;
+  }
+
+  /* 联系方式与按钮组居中排列 */
+  .hero-contact,
+  .hero-actions {
+    justify-content: center;
+  }
+
+  /* 手机端省掉按钮旁的长说明 */
+  .hero-actions-note {
+    display: none;
+  }
+
+  /* 技能卡由两列改为一列 */
+  .grid-2 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* 时间轴在手机端改为「日期在上、卡片在下」的单列 */
+  .timeline-item {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  /* 单列时不再需要中缝竖线 */
+  .timeline::before {
+    display: none;
+  }
+
+  /* 日期改为左对齐、去掉上边距 */
+  .timeline-date {
+    padding-top: 0;
+    text-align: left;
+  }
+
+  /* 卡片上的节点小圆点同步隐藏 */
+  .work-card::before {
+    display: none;
+  }
+
+  /* 校园实践与学习日志改为一列 */
+  .campus-list,
+  .learning-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* 意向行的标签列收窄，给内容更多宽度 */
+  .intent-row {
+    grid-template-columns: 80px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  /* 卡片内边距收紧，手机上不显得空 */
+  .card {
+    padding: 20px;
+  }
+
+  /* 区块间距收紧，减少手机上的滚动长度 */
+  .section {
+    padding-top: 48px;
+  }
+}

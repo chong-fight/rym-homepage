@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <!-- 手机端按屏幕宽度渲染，方便做响应式（进阶挑战 2） -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>任悦萌 · 个人求职主页 | 数据标注实习生</title>
+  <!-- 分享到微信/QQ 时的卡片标题与描述（上公网后才有意义） -->
+  <meta name="description" content="任悦萌 · 大数据技术专业在读 · 求职数据标注实习生 · 厦门">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="任悦萌 · 个人求职主页">
+  <meta property="og:description" content="大数据技术专业在读，求职数据标注实习生，每周可实习 4–5 天。">
+  <!-- 主题色：手机浏览器顶部地址栏跟随页面主色 -->
+  <meta name="theme-color" content="#A5192E">
+  <!-- 浏览器标签页上的小图标，避免默认图标和 404 请求 -->
+  <link rel="icon" href="assets/favicon.png">
+  <!-- 只引用本地样式表，全站不依赖任何外部 CDN -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ===== 顶部导航条：一页到底的锚点跳转 + 简历下载入口 ===== -->
+  <nav class="topbar">
+    <a class="topbar-brand" href="#top">任悦萌<span class="brand-dot">·</span>个人主页</a>
+    <ul class="topbar-links">
+      <li><a href="#intent">求职意向</a></li>
+      <li><a href="#skills">技能</a></li>
+      <li><a href="#works">项目</a></li>
+      <li><a href="#edu">教育</a></li>
+      <li><a href="#about">自评</a></li>
+    </ul>
+    <!-- 进阶挑战 3：主页与第 3 册简历联动，相对路径指向 assets/resume.pdf -->
+    <a class="topbar-cta" href="./assets/resume.pdf" download="任悦萌_简历.pdf">下载简历</a>
+  </nav>
+
+  <!-- ===== 头部（我是谁）：banner 视觉 + 姓名 + 一句话 + 联系方式 ===== -->
+  <header class="hero" id="top">
+    <div class="hero-inner">
+      <p class="eyebrow">DATA ANNOTATION INTERN · XIAMEN · 2026</p>
+      <h1 class="hero-name">任悦萌</h1>
+      <p class="hero-line">
+        大数据技术专业在读。做事有始有终，愿意把标注这类需要耐心和规范的活，一条条核对清楚。
+      </p>
+
+      <!-- 联系方式：邮箱本身可点击复制，电话可点击直接拨号 -->
+      <ul class="hero-contact">
+        <li class="contact-item">厦门</li>
+        <li class="contact-item"><a href="tel:15315166540">15315166540</a></li>
+        <li class="contact-item">
+          <button class="mail-btn" id="mailBtn" type="button" title="点击复制邮箱">2858560528@qq.com</button>
+        </li>
+        <li class="contact-item">微信：wxid_n4hhfb8p03m512</li>
+      </ul>
+
+      <div class="hero-actions">
+        <!-- 功能①：一键复制邮箱（原生 JS 实现） -->
+        <button class="btn btn-primary" id="copyBtn" type="button">一键复制邮箱</button>
+        <!-- 功能②：下载 ./assets/resume.pdf（相对路径，可直接部署） -->
+        <a class="btn btn-ghost" href="./assets/resume.pdf" download="任悦萌_简历.pdf">下载简历 PDF</a>
+        <span class="hero-actions-note">点邮箱或按钮即可复制，直接粘到邮件里就能用。</span>
+      </div>
+    </div>
+
+    <!-- 头像：图片加载失败时自动显示姓氏占位块，页面不会出现坏图 -->
+    <div class="hero-avatar">
+      <img src="assets/avatar.png" alt="任悦萌的头像" onerror="this.classList.add('is-missing')">
+      <span class="avatar-mono">任</span>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <!-- ===== 01 求职意向 ===== -->
+    <section class="section" id="intent">
+      <div class="section-head">
+        <span class="section-no">01</span>
+        <h2>求职意向</h2>
+        <p class="section-sub">我要什么岗位、能不能稳定到岗，一句话说清</p>
+      </div>
+
+      <div class="card intent-card">
+        <dl class="intent-list">
+          <div class="intent-row">
+            <dt>目标岗位</dt>
+            <dd>数据标注实习生（图像 / 文本 / 音频等数据的标注与分类）</dd>
+          </div>
+          <div class="intent-row">
+            <dt>意向公司</dt>
+            <dd>美图公司 · 美图影像研究院（MT Lab）</dd>
+          </div>
+          <div class="intent-row">
+            <dt>工作城市</dt>
+            <dd>厦门（本地院校在读，通勤方便）</dd>
+          </div>
+          <div class="intent-row">
+            <dt>到岗节奏</dt>
+            <dd>每周可实习 4–5 天，服从排班、稳定出勤</dd>
+          </div>
+          <div class="intent-row">
+            <dt>到岗时间</dt>
+            <dd>2026 年 10 月起，可连续实习 6 个月以上</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ===== 02 专业技能（我会什么）：只放 JD 需要的四项 ===== -->
+    <section class="section" id="skills">
+      <div class="section-head">
+        <span class="section-no">02</span>
+        <h2>专业技能</h2>
+        <p class="section-sub">只写岗位要的：办公软件 / 数据整理 / Python / 沟通协作</p>
+      </div>
+
+      <div class="grid grid-2">
+        <article class="card skill-card">
+          <div class="skill-top">
+            <h3>办公软件</h3>
+            <span class="pill pill-strong">熟练</span>
+          </div>
+          <p>Word / Excel / PPT 三件套：能独立完成文档排版、表格处理与演示文稿制作。</p>
+          <p class="skill-proof">佐证：计算机应用基础 90 分；办公软件应用期末优秀。</p>
+        </article>
+
+        <article class="card skill-card">
+          <div class="skill-top">
+            <h3>数据整理与文档</h3>
+            <span class="pill">基础</span>
+          </div>
+          <p>Excel 表格整理与数据核对；能按规范把资料整理成可交付的文档。</p>
+          <p class="skill-proof">佐证：独立完成约 5000 字课程设计报告（85 分）及汇报 PPT，反复修改排版后交付。</p>
+        </article>
+
+        <article class="card skill-card">
+          <div class="skill-top">
+            <h3>Python</h3>
+            <span class="pill">了解</span>
+          </div>
+          <p>课程学过基础语法，能写简单脚本。</p>
+          <p class="skill-proof">如实说明：还没在项目里用过，正在补（见下方「学习日志」）。</p>
+        </article>
+
+        <article class="card skill-card">
+          <div class="skill-top">
+            <h3>沟通与协作</h3>
+            <span class="pill pill-strong">熟练</span>
+          </div>
+          <p>任 4 人小组组长，会做分工计划，也能代表小组上台汇报。</p>
+          <p class="skill-proof">佐证：组织市场调查并回收有效问卷 80 份，小组报告获评优秀。</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== 03 实训项目经历（我做过什么）：每条都带数字 ===== -->
+    <section class="section" id="works">
+      <div class="section-head">
+        <span class="section-no">03</span>
+        <h2>实训项目经历</h2>
+        <p class="section-sub">三件事，每件都有可核对的结果和数字</p>
+      </div>
+
+      <ol class="timeline">
+        <li class="timeline-item">
+          <span class="timeline-date">2026.05</span>
+          <div class="card work-card">
+            <h3>课程设计报告（专业课程设计）<span class="role">独立完成</span></h3>
+            <p>
+              独立完成约 5000 字课程设计报告：查资料、整理数据、撰写报告，再做成汇报 PPT 上台展示；
+              按老师意见反复修改排版后提交，课程成绩 85 分。
+            </p>
+            <ul class="tags">
+              <li>资料查阅</li>
+              <li>数据整理</li>
+              <li>文档排版</li>
+              <li>上台汇报</li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-date">2026.06</span>
+          <div class="card work-card">
+            <h3>小组市场调查报告（市场调查课程）<span class="role">组长</span></h3>
+            <p>
+              作为组长组织 4 人小组完成一次真实市场调查：做分工与计划、设计问卷、组织发放回收、
+              整理数据并撰写报告，回收有效问卷 80 份，小组报告获评优秀。
+            </p>
+            <ul class="tags">
+              <li>分工计划</li>
+              <li>问卷设计</li>
+              <li>数据整理</li>
+              <li>代表汇报</li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="timeline-item">
+          <span class="timeline-date">2026.07</span>
+          <div class="card work-card">
+            <h3>新媒体图文推文（自建公众号）<span class="role">独立完成</span></h3>
+            <p>
+              独立完成公众号图文推文 6 篇，从选题、写文案、排版配图到发布全程自己来，
+              再根据后台数据反复优化标题与内容，单篇最高阅读 300 次。
+            </p>
+            <ul class="tags">
+              <li>选题文案</li>
+              <li>排版配图</li>
+              <li>数据复盘</li>
+            </ul>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ===== 04 教育背景 ===== -->
+    <section class="section" id="edu">
+      <div class="section-head">
+        <span class="section-no">04</span>
+        <h2>教育背景</h2>
+        <p class="section-sub">只列与岗位相关的课程，不堆课程目录</p>
+      </div>
+
+      <div class="card edu-card">
+        <div class="edu-main">
+          <h3>福州墨尔本理工职业学院</h3>
+          <p class="edu-major">大数据技术（大专） · 2024.09 – 2027.06（预计）</p>
+        </div>
+        <ul class="course-list">
+          <li><span class="course-name">计算机应用基础</span><b class="course-score">90 分</b></li>
+          <li><span class="course-name">办公软件应用</span><b class="course-score">期末优秀</b></li>
+          <li><span class="course-name">应用文写作</span><b class="course-score">88 分</b></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== 05 证书荣誉：没有的不硬写，用可核对的成绩做佐证 ===== -->
+    <section class="section" id="honor">
+      <div class="section-head">
+        <span class="section-no">05</span>
+        <h2>证书荣誉</h2>
+        <p class="section-sub">零虚构：没有证书就如实标注，只放拿得出的成绩</p>
+      </div>
+
+      <div class="card">
+        <ul class="honor-list">
+          <li>
+            <b>小组市场调查报告 · 获评优秀</b>
+            <span>2026.06 · 市场调查课程</span>
+          </li>
+          <li>
+            <b>岗位相关课程成绩 · 计算机应用基础 90 分、应用文写作 88 分</b>
+            <span>2024.09 – 2026.06</span>
+          </li>
+          <li class="honor-empty">证书 / 竞赛类：暂无。岗位相关课程成绩与小组评优已在上面列出，取得证书后会替换这一行。</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== 06 校园实践：对应 JD 的「有责任心、服从安排、稳定出勤」 ===== -->
+    <section class="section" id="campus">
+      <div class="section-head">
+        <span class="section-no">06</span>
+        <h2>校园实践</h2>
+        <p class="section-sub">长期、稳定、按时——用时间长度证明靠谱</p>
+      </div>
+
+      <ul class="campus-list">
+        <li class="card campus-item">
+          <div class="campus-top">
+            <h3>班级生活委员</h3>
+            <span class="campus-date">2025.09 – 至今</span>
+          </div>
+          <p>负责班级生活事务、组织班级活动，任职一年以上。</p>
+        </li>
+        <li class="card campus-item">
+          <div class="campus-top">
+            <h3>校学生会干事</h3>
+            <span class="campus-date">2025.10 – 2026.06</span>
+          </div>
+          <p>参与学生会活动组织，服务同学。</p>
+        </li>
+        <li class="card campus-item">
+          <div class="campus-top">
+            <h3>社区志愿服务</h3>
+            <span class="campus-date">2026.03 – 至今</span>
+          </div>
+          <p>累计志愿服务 20 小时，长期稳定参与。</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===== 07 自我评价：两句话，每句都带数字 ===== -->
+    <section class="section" id="about">
+      <div class="section-head">
+        <span class="section-no">07</span>
+        <h2>自我评价</h2>
+        <p class="section-sub">不说形容词，只说做过什么</p>
+      </div>
+
+      <div class="card quote-card">
+        <p>
+          做事有始有终、能长期稳定投入：社区志愿服务累计 20 小时，班级生活委员任职一年以上，
+          课程作业与报告均按时提交。
+        </p>
+        <p>
+          对细节有耐心：独立完成约 5000 字课程设计报告并反复修改排版，成绩 85 分；
+          愿意接受标注类重复性工作，按规范逐条核对。
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== 08 学习日志（进阶挑战 1）：正在补的三项，来自 JD 关键词对表 ===== -->
+    <section class="section" id="learning">
+      <div class="section-head">
+        <span class="section-no">08</span>
+        <h2>学习日志 · 我最近在学</h2>
+        <p class="section-sub">岗位要、我还没有的，正在补上</p>
+      </div>
+
+      <ul class="learning-list">
+        <li class="card learning-item">
+          <span class="learning-tag">进行中</span>
+          <h3>多模态数据标注实操</h3>
+          <p>4 周内用标注工具练 100 张图，并把标注规范写成文档，让「标注」从没做过变成能讲清楚。</p>
+        </li>
+        <li class="card learning-item">
+          <span class="learning-tag">进行中</span>
+          <h3>Python 从「了解」到「基础」</h3>
+          <p>补一个小脚本：用 pandas 读表、统计、导出结果，把课程里学过的语法真正用一次。</p>
+        </li>
+        <li class="card learning-item">
+          <span class="learning-tag">进行中</span>
+          <h3>质检与验收流程</h3>
+          <p>用 Excel 做一份质量检查表（错误类型 / 条数 / 返工率），把自检变成可讲的工作流程。</p>
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- ===== 页脚 ===== -->
+  <footer class="footer">
+    <p class="footer-main">© 2026 任悦萌 · 个人求职主页</p>
+    <p class="footer-note">
+      页面内容全部来自我的简历与素材库，没有编造经历 ｜ <a href="./assets/resume.pdf" download="任悦萌_简历.pdf">下载简历 PDF</a>
+    </p>
+    <!-- 上线后自动显示本页公网地址，并支持一键复制链接（本地打开时显示"本地预览"） -->
+    <p class="footer-url">
+      本页地址：<a id="siteUrl" href="#top">本地预览（尚未上线）</a>
+      <button class="link-btn" id="copyLinkBtn" type="button">复制链接</button>
+    </p>
+    <!-- 扫码访问：把 assets/qrcode.png 放进去就会自动出现，没有图时自动隐藏 -->
+    <div class="footer-qr">
+      <img src="assets/qrcode.png" alt="扫码访问任悦萌的个人主页"
+        onerror="this.parentNode.style.display='none'">
+      <span>扫码访问本页</span>
+    </div>
+  </footer>
+
+  <!-- 复制邮箱后的提示条 -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // ===== 一键复制：原生 JS，不引用任何外部库 =====
+    var EMAIL = "2858560528@qq.com";
+    var toastEl = document.getElementById("toast");
+    var toastTimer = null;
+
+    // 弹出 2 秒提示条，让用户确认复制成功了
+    function showToast(text) {
+      toastEl.textContent = text;
+      toastEl.classList.add("is-show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () {
+        toastEl.classList.remove("is-show");
+      }, 2000);
+    }
+
+    // 兜底复制：浏览器剪贴板 API 不可用时，用临时 textarea 选中再复制
+    function fallbackCopy(text) {
+      var input = document.createElement("textarea");
+      input.value = text;
+      input.setAttribute("readonly", "");
+      input.style.position = "fixed";
+      input.style.top = "-1000px";
+      document.body.appendChild(input);
+      input.select();
+      var ok = false;
+      try {
+        ok = document.execCommand("copy");
+      } catch (err) {
+        ok = false;
+      }
+      document.body.removeChild(input);
+      showToast(ok ? "已复制：" + text : "复制失败，请手动选中后再复制");
+    }
+
+    // 复制主流程：优先用剪贴板 API（需要 https 或 localhost），失败就走兜底
+    // 邮箱和主页链接都走这一个函数，避免写两遍
+    function copyText(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(
+          function () {
+            showToast("已复制：" + text);
+          },
+          function () {
+            fallbackCopy(text);
+          }
+        );
+      } else {
+        fallbackCopy(text);
+      }
+    }
+
+    function copyEmail() {
+      copyText(EMAIL);
+    }
+
+    // 两个入口都绑上：正文里的邮箱本身 + 「一键复制邮箱」按钮
+    document.getElementById("mailBtn").addEventListener("click", copyEmail);
+    document.getElementById("copyBtn").addEventListener("click", copyEmail);
+
+    // ===== 上线地址：部署到公网后自动显示真实网址，并提供一键复制 =====
+    var siteUrlEl = document.getElementById("siteUrl");
+    var copyLinkBtn = document.getElementById("copyLinkBtn");
+    var isLocalPreview = location.protocol === "file:";
+    var siteUrl = location.href.split("#")[0];
+
+    if (isLocalPreview) {
+      // 本地双击打开时如实说明：还没上线，避免自己骗自己
+      siteUrlEl.textContent = "本地预览（还没上线）";
+      copyLinkBtn.style.display = "none";
+    } else {
+      // 公网访问时显示真实地址，方便面试官复制
+      siteUrlEl.textContent = siteUrl;
+      siteUrlEl.href = siteUrl;
+      copyLinkBtn.addEventListener("click", function () {
+        copyText(siteUrl);
+      });
+    }
+  </script>
+
+</body>
+
+</html>
